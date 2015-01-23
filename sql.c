@@ -1,5 +1,5 @@
 /*
- *	$Id: sql.c 703 2009-03-14 22:06:12Z dfishburn $
+ *	$Id: sql.c 745 2009-10-27 02:42:55Z dfishburn $
  *
  *	Copyright (c) 2002-2003, Darren Hiebert
  *
@@ -65,9 +65,14 @@ typedef enum eKeywordId {
 	KEYWORD_end,
 	KEYWORD_function,
 	KEYWORD_if,
+	KEYWORD_else,
+	KEYWORD_elseif,
+	KEYWORD_endif,
 	KEYWORD_loop,
+	KEYWORD_while,
 	KEYWORD_case,
 	KEYWORD_for,
+	KEYWORD_do,
 	KEYWORD_call,
 	KEYWORD_package,
 	KEYWORD_pragma,
@@ -114,6 +119,7 @@ typedef enum eKeywordId {
 	KEYWORD_ml_conn_dnet,
 	KEYWORD_ml_conn_java,
 	KEYWORD_ml_conn_chk,
+	KEYWORD_ml_prop,
 	KEYWORD_local,
 	KEYWORD_temporary,
 	KEYWORD_drop,
@@ -140,6 +146,7 @@ typedef enum eTokenType {
 	TOKEN_BLOCK_LABEL_END,
 	TOKEN_CHARACTER,
 	TOKEN_CLOSE_PAREN,
+	TOKEN_COLON,
 	TOKEN_SEMICOLON,
 	TOKEN_COMMA,
 	TOKEN_IDENTIFIER,
@@ -154,7 +161,8 @@ typedef enum eTokenType {
 	TOKEN_OPEN_SQUARE,
 	TOKEN_CLOSE_SQUARE,
 	TOKEN_TILDE,
-	TOKEN_FORWARD_SLASH
+	TOKEN_FORWARD_SLASH,
+	TOKEN_EQUAL
 } tokenType;
 
 typedef struct sTokenInfoSQL {
@@ -198,6 +206,7 @@ typedef enum {
 	SQLTAG_SYNONYM,
 	SQLTAG_MLTABLE,
 	SQLTAG_MLCONN,
+	SQLTAG_MLPROP,
 	SQLTAG_COUNT
 } sqlKind;
 
@@ -223,7 +232,8 @@ static kindOption SqlKinds [] = {
 	{ TRUE,  'V', "view",		  "views"				   },
 	{ TRUE,  'n', "synonym",	  "synonyms"			   },
 	{ TRUE,  'x', "mltable",	  "MobiLink Table Scripts" },
-	{ TRUE,  'y', "mlconn",		  "MobiLink Conn Scripts"  }
+	{ TRUE,  'y', "mlconn",		  "MobiLink Conn Scripts"  },
+	{ TRUE,  'z', "mlprop",		  "MobiLink Properties "   }
 };
 
 static const keywordDesc SqlKeywordTable [] = {
@@ -237,9 +247,14 @@ static const keywordDesc SqlKeywordTable [] = {
 	{ "end",							KEYWORD_end				      },
 	{ "function",						KEYWORD_function		      },
 	{ "if",								KEYWORD_if				      },
+	{ "else",							KEYWORD_else			      },
+	{ "elseif",							KEYWORD_elseif			      },
+	{ "endif",							KEYWORD_endif			      },
 	{ "loop",							KEYWORD_loop			      },
+	{ "while",							KEYWORD_while			      },
 	{ "case",							KEYWORD_case			      },
 	{ "for",							KEYWORD_for				      },
+	{ "do",								KEYWORD_do				      },
 	{ "call",							KEYWORD_call			      },
 	{ "package",						KEYWORD_package			      },
 	{ "pragma",							KEYWORD_pragma			      },
@@ -286,6 +301,7 @@ static const keywordDesc SqlKeywordTable [] = {
 	{ "ml_add_dnet_connection_script",	KEYWORD_ml_conn_dnet	      },
 	{ "ml_add_java_connection_script",	KEYWORD_ml_conn_java	      },
 	{ "ml_add_lang_conn_script_chk",	KEYWORD_ml_conn_chk 	      },
+	{ "ml_add_property",				KEYWORD_ml_prop		 	      },
 	{ "local",							KEYWORD_local			      },
 	{ "temporary",						KEYWORD_temporary		      },
 	{ "drop",							KEYWORD_drop			      },
@@ -303,6 +319,7 @@ static const keywordDesc SqlKeywordTable [] = {
 
 /* Recursive calls */
 static void parseBlock (tokenInfo *const token, const boolean local);
+static void parseDeclare (tokenInfo *const token, const boolean local);
 static void parseKeywords (tokenInfo *const token);
 static void parseSqlFile (tokenInfo *const token);
 
@@ -541,6 +558,7 @@ getNextChar:
 		case EOF: longjmp (Exception, (int)ExceptionEOF);	break;
 		case '(': token->type = TOKEN_OPEN_PAREN;		break;
 		case ')': token->type = TOKEN_CLOSE_PAREN;		break;
+		case ':': token->type = TOKEN_COLON;			break;
 		case ';': token->type = TOKEN_SEMICOLON;		break;
 		case '.': token->type = TOKEN_PERIOD;			break;
 		case ',': token->type = TOKEN_COMMA;			break;
@@ -549,6 +567,7 @@ getNextChar:
 		case '~': token->type = TOKEN_TILDE;			break;
 		case '[': token->type = TOKEN_OPEN_SQUARE;		break;
 		case ']': token->type = TOKEN_CLOSE_SQUARE;		break;
+		case '=': token->type = TOKEN_EQUAL;			break;
 
 		case '\'':
 		case '"':
@@ -770,7 +789,7 @@ static void skipArgumentList (tokenInfo *const token)
 	 * Other databases can have arguments with fully declared
 	 * datatypes:
 	 *	 (	name varchar(30), text binary(10)  )
-	 * So we must check for nested open and closing parantheses
+	 * So we must check for nested open and closing parentheses
 	 */
 
 	if (isType (token, TOKEN_OPEN_PAREN))	/* arguments? */
@@ -848,7 +867,7 @@ static void parseSubProgram (tokenInfo *const token)
 			/*
 			 * Read token after which could be the
 			 * command terminator if a prototype
-			 * or an open parantheses
+			 * or an open parenthesis
 			 */
 			readToken (token);
 			if (isType (token, TOKEN_OPEN_PAREN))
@@ -870,6 +889,7 @@ static void parseSubProgram (tokenInfo *const token)
 					isKeyword (token, KEYWORD_internal) ||
 					isKeyword (token, KEYWORD_external) ||
 					isKeyword (token, KEYWORD_url) ||
+					isType (token, TOKEN_EQUAL) ||
 					isCmdTerm (token)
 				)
 			  )
@@ -900,6 +920,12 @@ static void parseSubProgram (tokenInfo *const token)
 
 			vStringClear (token->scope);
 		} 
+		if ( isType (token, TOKEN_EQUAL) )
+			readToken (token);
+
+		if ( isKeyword (token, KEYWORD_declare) )
+			parseDeclare (token, FALSE);
+
 		if (isKeyword (token, KEYWORD_is) || 
 				isKeyword (token, KEYWORD_begin) )
 		{
@@ -1066,18 +1092,18 @@ static void parseDeclare (tokenInfo *const token, const boolean local)
 			case KEYWORD_type:		parseType (token); break;
 
 			default:
-									if (isType (token, TOKEN_IDENTIFIER))
-									{
-										if (local)
-										{
-											makeSqlTag (token, SQLTAG_LOCAL_VARIABLE);
-										} 
-										else 
-										{
-											makeSqlTag (token, SQLTAG_VARIABLE);
-										}
-									}
-									break;
+				if (isType (token, TOKEN_IDENTIFIER))
+				{
+					if (local)
+					{
+						makeSqlTag (token, SQLTAG_LOCAL_VARIABLE);
+					} 
+					else 
+					{
+						makeSqlTag (token, SQLTAG_VARIABLE);
+					}
+				}
+				break;
 		}
 		findToken (token, TOKEN_SEMICOLON);
 		readToken (token);
@@ -1164,12 +1190,13 @@ static void parseLabel (tokenInfo *const token)
 	}
 }
 
-static void parseStatements (tokenInfo *const token)
+static void parseStatements (tokenInfo *const token, const boolean exit_on_endif )
 {
 	boolean isAnsi   = TRUE;
 	boolean stmtTerm = FALSE;
 	do
 	{
+
 		if (isType (token, TOKEN_BLOCK_LABEL_BEGIN))
 			parseLabel (token);
 		else
@@ -1210,6 +1237,7 @@ static void parseStatements (tokenInfo *const token)
 					 */
 					while (! isKeyword (token, KEYWORD_then))
 						readToken (token);
+
 					readToken (token);
 					continue;
 
@@ -1218,6 +1246,15 @@ static void parseStatements (tokenInfo *const token)
 					 * We do not want to look for a ; since for an empty
 					 * IF block, it would skip over the END.
 					 *	IF...THEN
+					 *	END IF;
+					 *
+					 *	IF...THEN
+					 *	ELSE
+					 *	END IF;
+					 *
+					 *	IF...THEN
+					 *	ELSEIF...THEN
+					 *	ELSE
 					 *	END IF;
 					 *
 					 *	or non-ANSI
@@ -1248,7 +1285,22 @@ static void parseStatements (tokenInfo *const token)
 					else
 					{
 						readToken (token);
-						parseStatements (token);
+
+						while( ! (isKeyword (token, KEYWORD_end ) ||
+						          isKeyword (token, KEYWORD_endif ) ) 
+								)
+						{
+							if ( isKeyword (token, KEYWORD_else) ||
+									isKeyword (token, KEYWORD_elseif)    )
+								readToken (token);
+
+							parseStatements (token, TRUE);
+
+							if ( isCmdTerm(token) )
+								readToken (token);
+
+						}
+
 						/* 
 						 * parseStatements returns when it finds an END, an IF
 						 * should follow the END for ANSI anyway.
@@ -1258,7 +1310,13 @@ static void parseStatements (tokenInfo *const token)
 						if( isKeyword (token, KEYWORD_end ) )
 							readToken (token);
 
-						if( ! isKeyword (token, KEYWORD_if ) )
+						if( isKeyword (token, KEYWORD_if ) || isKeyword (token, KEYWORD_endif ) )
+						{
+							readToken (token);
+							if ( isCmdTerm(token) )
+								stmtTerm = TRUE;
+						} 
+						else 
 						{
 							/*
 							 * Well we need to do something here.
@@ -1284,13 +1342,63 @@ static void parseStatements (tokenInfo *const token)
 					 *	END CASE;
 					 *	
 					 *	FOR loop_name AS cursor_name CURSOR FOR ...
+					 *	DO
 					 *	END FOR;
 					 */
+					if( isKeyword (token, KEYWORD_for ) )
+					{
+						/* loop name */
+						readToken (token);
+						/* AS */
+						readToken (token);
+
+						while ( ! isKeyword (token, KEYWORD_is) )
+						{
+							/*
+							 * If this is not an AS keyword this is 
+							 * not a proper FOR statement and should 
+							 * simply be ignored
+							 */
+							return;
+						}
+
+						while ( ! isKeyword (token, KEYWORD_do) )
+							readToken (token);
+					}
+
+
 					readToken (token);
-					parseStatements (token);
+					while( ! isKeyword (token, KEYWORD_end ) )
+					{
+						/*
+						if ( isKeyword (token, KEYWORD_else) ||
+								isKeyword (token, KEYWORD_elseif)    )
+							readToken (token);
+							*/
+
+						parseStatements (token, FALSE);
+
+						if ( isCmdTerm(token) )
+							readToken (token);
+					}
+
 
 					if( isKeyword (token, KEYWORD_end ) )
 						readToken (token);
+
+					/*
+					 * Typically ended with 
+					 *    END LOOP [loop name];
+					 *    END CASE
+					 *    END FOR [loop name];
+					 */
+					if ( isKeyword (token, KEYWORD_loop) ||
+							isKeyword (token, KEYWORD_case) ||
+							isKeyword (token, KEYWORD_for)    )
+						readToken (token);
+
+					if ( isCmdTerm(token) )
+						stmtTerm = TRUE;
 
 					break;
 
@@ -1324,17 +1432,56 @@ static void parseStatements (tokenInfo *const token)
 			 *
 			 * So we must read to the first semi-colon or an END block
 			 */
-			while ( ! stmtTerm && 
-					! (   isKeyword (token, KEYWORD_end) ||
-						 (isCmdTerm(token))              )	  
+			while ( ! stmtTerm                               && 
+					! (   isKeyword (token, KEYWORD_end)     ||
+						 (isCmdTerm(token))              )	 
 					)
 			{
+				if (   isKeyword (token, KEYWORD_endif)   &&
+						 exit_on_endif                   )	  
+					return;
+
+				if (isType (token, TOKEN_COLON) )
+				{
+					/*
+					 * A : can signal a loop name 
+					 *    myloop:
+					 *    LOOP 
+					 *        LEAVE myloop;
+					 *    END LOOP;
+					 * Unfortunately, labels do not have a
+					 * cmd terminator, therefore we have to check 
+					 * if the next token is a keyword and process 
+					 * it accordingly.
+					 */
+					readToken (token);
+					if ( isKeyword (token, KEYWORD_loop) ||
+							isKeyword (token, KEYWORD_while) ||
+							isKeyword (token, KEYWORD_for) )
+						/* parseStatements (token); */
+						return;
+				}
+
 				readToken (token);
 
 				if (isType (token, TOKEN_OPEN_PAREN)  ||
 				    isType (token, TOKEN_OPEN_CURLY)  ||
 				    isType (token, TOKEN_OPEN_SQUARE)  )
 						skipToMatched (token);
+
+				/*
+				 * Since we know how to parse various statements 
+				 * if we detect them, parse them to completion
+				 */
+				if (isType (token, TOKEN_BLOCK_LABEL_BEGIN) ||
+						isKeyword (token, KEYWORD_exception) ||
+						isKeyword (token, KEYWORD_loop) ||
+						isKeyword (token, KEYWORD_case) ||
+						isKeyword (token, KEYWORD_for) ||
+						isKeyword (token, KEYWORD_begin)    )
+					parseStatements (token, FALSE);
+				else if (isKeyword (token, KEYWORD_if))
+					parseStatements (token, TRUE);
 
 			}
 		}
@@ -1343,11 +1490,12 @@ static void parseStatements (tokenInfo *const token)
 		 * See comment above, now, only read if the current token 
 		 * is not a command terminator.
 		 */
-		if ( isCmdTerm(token) )
-		{
-			readToken (token);
-		}
-	} while (! isKeyword (token, KEYWORD_end) && ! stmtTerm );
+		if ( isCmdTerm(token) && ! stmtTerm )
+			stmtTerm = TRUE;
+				
+	} while (! isKeyword (token, KEYWORD_end) && 
+			 ! (exit_on_endif && isKeyword (token, KEYWORD_endif) ) && 
+			 ! stmtTerm );
 }
 
 static void parseBlock (tokenInfo *const token, const boolean local)
@@ -1378,7 +1526,10 @@ static void parseBlock (tokenInfo *const token, const boolean local)
 		token->begin_end_nest_lvl++;
 		while (! isKeyword (token, KEYWORD_end))
 		{
-			parseStatements (token);
+			parseStatements (token, FALSE);
+
+			if ( isCmdTerm(token) )
+				readToken (token);
 		}
 		token->begin_end_nest_lvl--;
 
@@ -1994,6 +2145,70 @@ static void parseMLConn (tokenInfo *const token)
 	deleteToken (event);
 }
 
+static void parseMLProp (tokenInfo *const token)
+{
+	tokenInfo *const component     = newToken ();
+	tokenInfo *const prop_set_name = newToken ();
+	tokenInfo *const prop_name     = newToken ();
+
+	/*
+	 * This deals with these formats
+     *   ml_add_property ( 
+     *       'comp_name', 
+     *       'prop_set_name', 
+     *       'prop_name', 
+     *       'prop_value'
+     *   )
+	 */
+
+	readToken (token);
+	if ( isType (token, TOKEN_OPEN_PAREN) )
+	{
+		readToken (component);
+		readToken (token);
+		while (!(isType (token, TOKEN_COMMA) ||
+					isType (token, TOKEN_CLOSE_PAREN)
+				))
+		{
+			readToken (token);
+		}
+
+		if (isType (token, TOKEN_COMMA))
+		{
+			readToken (prop_set_name);
+			readToken (token);
+			while (!(isType (token, TOKEN_COMMA) ||
+						isType (token, TOKEN_CLOSE_PAREN)
+					))
+			{
+				readToken (token);
+			}
+
+			if (isType (token, TOKEN_COMMA))
+			{
+				readToken (prop_name);
+
+				if (isType (component, TOKEN_STRING) && 
+						isType (prop_set_name, TOKEN_STRING) && 
+						isType (prop_name, TOKEN_STRING) )
+				{
+					addToScope(component, prop_set_name->string);
+					addToScope(component, prop_name->string);
+					makeSqlTag (component, SQLTAG_MLPROP);
+				}
+			} 
+			if( !isType (token, TOKEN_CLOSE_PAREN) )
+				findToken (token, TOKEN_CLOSE_PAREN);
+		} 
+	}
+
+	findCmdTerm (token, TRUE);
+
+	deleteToken (component);
+	deleteToken (prop_set_name);
+	deleteToken (prop_name);
+}
+
 static void parseComment (tokenInfo *const token)
 {
 	/*
@@ -2039,7 +2254,7 @@ static void parseKeywords (tokenInfo *const token)
 			case KEYWORD_drop:			parseDrop (token); break;
 			case KEYWORD_event:			parseEvent (token); break;
 			case KEYWORD_function:		parseSubProgram (token); break;
-			case KEYWORD_if:			parseStatements (token); break;
+			case KEYWORD_if:			parseStatements (token, FALSE); break;
 			case KEYWORD_index:			parseIndex (token); break;
 			case KEYWORD_ml_table:		parseMLTable (token); break;
 			case KEYWORD_ml_table_lang: parseMLTable (token); break;
@@ -2051,6 +2266,7 @@ static void parseKeywords (tokenInfo *const token)
 			case KEYWORD_ml_conn_dnet:	parseMLConn (token); break;
 			case KEYWORD_ml_conn_java:	parseMLConn (token); break;
 			case KEYWORD_ml_conn_chk:	parseMLConn (token); break;
+			case KEYWORD_ml_prop:		parseMLProp (token); break;
 			case KEYWORD_package:		parsePackage (token); break;
 			case KEYWORD_procedure:		parseSubProgram (token); break;
 			case KEYWORD_publication:	parsePublication (token); break;

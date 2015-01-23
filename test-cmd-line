@@ -1,0 +1,1 @@
+./anjuta_tags --sort=no --fields=afmiKlnsStTz --c++-kinds=+p foo.cpp ; cat tags

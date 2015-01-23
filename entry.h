@@ -72,7 +72,8 @@ typedef struct sTagEntryInfo {
 		const char* inheritance;
 		const char* scope [2];    /* value and key */
 		const char* signature;
-
+		const char* returnType;
+		
 		/* type (union/struct/etc.) and name for a variable or typedef. */
 		const char* typeRef [2];  /* e.g., "struct" and struct name */
 

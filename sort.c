@@ -1,5 +1,5 @@
 /*
-*   $Id: sort.c 498 2007-02-17 22:43:15Z dhiebert $
+*   $Id: sort.c 747 2009-11-06 02:33:37Z dhiebert $
 *
 *   Copyright (c) 1996-2002, Darren Hiebert
 *
@@ -109,7 +109,7 @@ static void failedSort (FILE *const fp, const char* msg)
 	if (fp != NULL)
 		fclose (fp);
 	if (msg == NULL)
-		error (FATAL | PERROR, cannotSort);
+		error (FATAL | PERROR, "%s", cannotSort);
 	else
 		error (FATAL, "%s: %s", msg, cannotSort);
 }

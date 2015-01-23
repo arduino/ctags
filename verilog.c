@@ -1,5 +1,5 @@
 /*
-*   $Id: verilog.c 573 2007-06-26 05:41:27Z elliotth $
+*   $Id: verilog.c 753 2010-02-27 17:53:32Z elliotth $
 * 
 *   Copyright (c) 2003, Darren Hiebert
 * 
@@ -232,6 +232,7 @@ static void tagNameList (const verilogKind kind, int c)
 		c = skipWhite (c);
 		if (c == '=')
 		{
+			c = skipWhite (vGetc ());
 			if (c == '{')
 				skipPastMatch ("{}");
 			else

@@ -1,5 +1,5 @@
 /*
-*   $Id: lregex.c 576 2007-06-30 04:16:23Z elliotth $
+*   $Id: lregex.c 747 2009-11-06 02:33:37Z dhiebert $
 *
 *   Copyright (c) 2000-2003, Darren Hiebert
 *
@@ -408,7 +408,7 @@ static void processLanguageRegex (const langType language,
 		const char* regexfile = parameter + 1;
 		FILE* const fp = fopen (regexfile, "r");
 		if (fp == NULL)
-			error (WARNING | PERROR, regexfile);
+			error (WARNING | PERROR, "%s", regexfile);
 		else
 		{
 			vString* const regex = vStringNew ();

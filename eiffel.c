@@ -1,5 +1,5 @@
 /*
-*   $Id: eiffel.c 706 2009-06-28 23:09:30Z dhiebert $
+*   $Id: eiffel.c 748 2009-11-06 02:44:42Z dhiebert $
 *
 *   Copyright (c) 1998-2002, Darren Hiebert
 *
@@ -53,13 +53,15 @@ typedef enum eException { ExceptionNone, ExceptionEOF } exception_t;
  */
 typedef enum eKeywordId {
 	KEYWORD_NONE = -1,
-	KEYWORD_alias, KEYWORD_all, KEYWORD_and, KEYWORD_as, KEYWORD_assign,
+	KEYWORD_alias, KEYWORD_all, KEYWORD_and,
+	KEYWORD_as, KEYWORD_assign, KEYWORD_attached,
 	KEYWORD_check, KEYWORD_class, KEYWORD_convert, KEYWORD_create,
 	KEYWORD_creation, KEYWORD_Current,
-	KEYWORD_debug, KEYWORD_deferred, KEYWORD_do, KEYWORD_else,
-	KEYWORD_elseif, KEYWORD_end, KEYWORD_ensure, KEYWORD_expanded,
-	KEYWORD_export, KEYWORD_external, KEYWORD_false, KEYWORD_feature,
-	KEYWORD_from, KEYWORD_frozen, KEYWORD_if, KEYWORD_implies,
+	KEYWORD_debug, KEYWORD_deferred, KEYWORD_detachable, KEYWORD_do,
+	KEYWORD_else, KEYWORD_elseif, KEYWORD_end, KEYWORD_ensure,
+	KEYWORD_expanded, KEYWORD_export, KEYWORD_external,
+	KEYWORD_false, KEYWORD_feature, KEYWORD_from, KEYWORD_frozen,
+	KEYWORD_if, KEYWORD_implies,
 	KEYWORD_indexing, KEYWORD_infix, KEYWORD_inherit, KEYWORD_inspect,
 	KEYWORD_invariant, KEYWORD_is, KEYWORD_like, KEYWORD_local,
 	KEYWORD_loop, KEYWORD_not, KEYWORD_obsolete, KEYWORD_old, KEYWORD_once,
@@ -154,6 +156,7 @@ static const keywordDesc EiffelKeywordTable [] = {
 	{ "and",            KEYWORD_and        },
 	{ "as",             KEYWORD_as         },
 	{ "assign",         KEYWORD_assign     },
+	{ "attached",       KEYWORD_attached   },
 	{ "check",          KEYWORD_check      },
 	{ "class",          KEYWORD_class      },
 	{ "convert",        KEYWORD_convert    },
@@ -162,6 +165,7 @@ static const keywordDesc EiffelKeywordTable [] = {
 	{ "current",        KEYWORD_Current    },
 	{ "debug",          KEYWORD_debug      },
 	{ "deferred",       KEYWORD_deferred   },
+	{ "detachable",     KEYWORD_detachable },
 	{ "do",             KEYWORD_do         },
 	{ "else",           KEYWORD_else       },
 	{ "elseif",         KEYWORD_elseif     },
@@ -870,7 +874,9 @@ static boolean parseType (tokenInfo *const token)
 	}
 	else
 	{
-		if (isKeyword (id, KEYWORD_expanded))
+		if (isKeyword (id, KEYWORD_attached) ||
+		    isKeyword (id, KEYWORD_detachable) ||
+		    isKeyword (id, KEYWORD_expanded))
 		{
 			copyToken (id, token);
 			readToken (token);
