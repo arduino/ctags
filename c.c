@@ -1733,6 +1733,7 @@ static void processToken (tokenInfo *const token, statementInfo *const st)
 		case KEYWORD_NONE:      processName (st);                       break;
 		case KEYWORD_ABSTRACT:  st->implementation = IMP_ABSTRACT;      break;
 		case KEYWORD_ATTRIBUTE:
+		case KEYWORD_TYPENAME:
 		case KEYWORD_INLINE:    skipParens (); initToken (token);       break;
 		case KEYWORD_BIND:      st->declaration = DECL_BASE;            break;
 		case KEYWORD_BIT:       st->declaration = DECL_BASE;            break;
