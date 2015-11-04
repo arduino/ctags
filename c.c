@@ -567,7 +567,6 @@ static const char *implementationString (const impType imp)
 /*
 *   Debugging functions
 */
-#define DEBUG
 #ifdef DEBUG
 
 #define boolString(c)   ((c) ? "TRUE" : "FALSE")
@@ -2120,6 +2119,7 @@ static void parseReturnType (statementInfo *const st)
 {
 	int i;
 	int lower_bound;
+	int upper_bound;
 	tokenInfo * finding_tok;
 	
 	/* FIXME TODO: if java language must be supported then impement this here
@@ -2161,8 +2161,21 @@ static void parseReturnType (statementInfo *const st)
 	}
 	else
 		lower_bound = 1;
-	
-	for (i = (unsigned int) NumTokens;  i > lower_bound;  i--)
+
+	upper_bound = -1;
+	for (i = 0; i < NumTokens; i++) {
+        tokenInfo *curr_tok;
+        curr_tok = prevToken (st, i);
+	    if (curr_tok->type == TOKEN_BRACE_CLOSE || curr_tok->type == TOKEN_BRACE_OPEN) {
+	        upper_bound = i - 1;
+	        break;
+	    }
+	}
+	if (upper_bound < 0) {
+	    upper_bound = NumTokens - 1;
+	}
+
+	for (i = upper_bound;  i > lower_bound;  i--)
 	{
 		tokenInfo * curr_tok;
 		curr_tok = prevToken (st, i);	
