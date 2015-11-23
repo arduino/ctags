@@ -2202,11 +2202,11 @@ static void parseReturnType (statementInfo *const st)
 				vStringPut (ReturnType, '&');
 				break;
 
-			case TOKEN_KEYWORD:
-				vStringPut (ReturnType, ' ');
-				
 			default:
 				vStringCat (ReturnType, curr_tok->name);
+				if (curr_tok->type == TOKEN_KEYWORD) {
+					vStringPut (ReturnType, ' ');
+				}
 				break;				
 		}
 	}
