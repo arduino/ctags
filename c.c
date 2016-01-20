@@ -83,7 +83,7 @@ typedef enum eKeywordId {
 	KEYWORD_PROGRAM, KEYWORD_PROTECTED, KEYWORD_PUBLIC,
 	KEYWORD_REGISTER, KEYWORD_RETURN,
 	KEYWORD_SHADOW, KEYWORD_STATE,
-	KEYWORD_SHORT, KEYWORD_SIGNED, KEYWORD_STATIC, KEYWORD_STRING,
+	KEYWORD_SHORT, KEYWORD_SIGNED, KEYWORD_STATIC, KEYWORD_STATIC_ASSERT, KEYWORD_STRING,
 	KEYWORD_STRUCT, KEYWORD_SWITCH, KEYWORD_SYNCHRONIZED,
 	KEYWORD_TASK, KEYWORD_TEMPLATE, KEYWORD_THIS, KEYWORD_THROW,
 	KEYWORD_THROWS, KEYWORD_TRANSIENT, KEYWORD_TRANS, KEYWORD_TRANSITION,
@@ -437,6 +437,7 @@ static const keywordDesc KeywordTable [] = {
 	{ "signed",         KEYWORD_SIGNED,         { 1, 1, 0, 0, 0 } },
 	{ "state",          KEYWORD_STATE,          { 0, 0, 0, 0, 1 } },
 	{ "static",         KEYWORD_STATIC,         { 1, 1, 1, 1, 1 } },
+	{ "static_assert",  KEYWORD_STATIC_ASSERT,  { 0, 1, 0, 0, 0} },
 	{ "string",         KEYWORD_STRING,         { 0, 0, 1, 0, 1 } },
 	{ "struct",         KEYWORD_STRUCT,         { 1, 1, 1, 0, 0 } },
 	{ "switch",         KEYWORD_SWITCH,         { 1, 1, 1, 1, 0 } },
@@ -1764,6 +1765,7 @@ static void processToken (tokenInfo *const token, statementInfo *const st)
 		case KEYWORD_RETURN:    skipStatement (st);                     break;
 		case KEYWORD_SHORT:     st->declaration = DECL_BASE;            break;
 		case KEYWORD_SIGNED:    st->declaration = DECL_BASE;            break;
+		case KEYWORD_STATIC_ASSERT:   skipParens();                     break;
 		case KEYWORD_STRING:    st->declaration = DECL_BASE;            break;
 		case KEYWORD_STRUCT:    st->declaration = DECL_STRUCT;          break;
 		case KEYWORD_TASK:      st->declaration = DECL_TASK;            break;
