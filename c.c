@@ -1986,7 +1986,13 @@ static boolean skipPostArgumentStuff (
 					break;
 
 				default:
-					if (isType (token, TOKEN_NONE))
+					/* "override" and "final" are only keywords in the declaration of a virtual
+					 * member function, so need to be handled specially, not as keywords */
+					if (isLanguage(Lang_cpp) && isType (token, TOKEN_NAME) &&
+						(strcmp ("override", vStringValue (token->name)) == 0 ||
+						 strcmp ("final", vStringValue (token->name)) == 0))
+						;
+					else if (isType (token, TOKEN_NONE))
 						;
 					else if (info->isKnrParamList  &&  info->parameterCount > 0)
 						++elementCount;
@@ -2839,8 +2845,20 @@ static void tagCheck (statementInfo *const st)
 					st->declaration == DECL_NAMESPACE ||
 					st->declaration == DECL_PROGRAM)
 			{
-				if (isType (prev, TOKEN_NAME))
+				tokenInfo *name_token = (tokenInfo *)prev;
+
+				/* C++ 11 allows class <name> final { ... } */
+				if (isLanguage (Lang_cpp) && isType (prev, TOKEN_NAME) &&
+					strcmp("final", vStringValue(prev->name)) == 0 &&
+					isType(prev2, TOKEN_NAME))
+				{
+					name_token = (tokenInfo *)prev2;
+					copyToken (st->blockName, name_token);
+				}
+				else if (isType (name_token, TOKEN_NAME))
+				{
 					copyToken (st->blockName, prev);
+				}
 				else
 				{
 					/*  For an anonymous struct or union we use a unique ID
