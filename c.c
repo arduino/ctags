@@ -1388,10 +1388,16 @@ static void skipToMatch (const char *const pair)
 	{
 		if (CollectingSignature)
 			vStringPut (Signature, c);
-		
 
 		if (c == begin)
 		{
+			char s = cppGetc();
+			if (s == '<' && s == c) {
+				// templates can still contain "<<" ot "<<="
+				break;
+			} else {
+				cppUngetc(s);
+			}
 			++matchLevel;
 			if (braceFormatting  &&  getDirectiveNestLevel () != initialLevel)
 			{
