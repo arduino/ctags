@@ -1388,10 +1388,16 @@ static void skipToMatch (const char *const pair)
 	{
 		if (CollectingSignature)
 			vStringPut (Signature, c);
-		
 
 		if (c == begin)
 		{
+			char s = cppGetc();
+			if (s == '<' && s == c) {
+				// templates can still contain "<<" ot "<<="
+				break;
+			} else {
+				cppUngetc(s);
+			}
 			++matchLevel;
 			if (braceFormatting  &&  getDirectiveNestLevel () != initialLevel)
 			{
@@ -1407,6 +1413,16 @@ static void skipToMatch (const char *const pair)
 				skipToFormattedBraceMatch ();
 				break;
 			}
+		}
+		/* early out if matching "<>" and we encounter a ";" or "{" to mitigate
+		 * match problems with C++ generics containing a static expression like
+		 *     foo<X<Y> bar;
+		 * normally neither ";" nor "{" could appear inside "<>" anyway. */
+		else if (isLanguage (Lang_cpp) && begin == '<' &&
+		         (c == ';' || c == '{'))
+		{
+			cppUngetc (c);
+			break;
 		}
 	}
 	if (c == EOF)
