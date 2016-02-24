@@ -1392,20 +1392,34 @@ static void skipToMatch (const char *const pair)
 
 		if (c == begin)
 		{
-			++matchLevel;
-			if (braceFormatting  &&  getDirectiveNestLevel () != initialLevel)
-			{
-				skipToFormattedBraceMatch ();
-				break;
+			// watch out for '<<' in template arguments
+			int x = cppGetc ();
+			if(c == '<' && x == '<') { 
+				// we've found a << - do nothing
+			} else {
+				cppUngetc (x);
+				++matchLevel;
+				if (braceFormatting  &&  getDirectiveNestLevel () != initialLevel)
+				{
+					skipToFormattedBraceMatch ();
+					break;
+				}
 			}
 		}
 		else if (c == end)
 		{
-			--matchLevel;
-			if (braceFormatting  &&  getDirectiveNestLevel () != initialLevel)
-			{
-				skipToFormattedBraceMatch ();
-				break;
+			// watch out for '>>' in template arguments
+			int x = cppGetc ();
+			if(c == '>' && x == '>') { 
+				// we've found a >> in a template - skip it
+			} else {
+				cppUngetc (x);
+				--matchLevel;
+				if (braceFormatting  &&  getDirectiveNestLevel () != initialLevel)
+				{
+					skipToFormattedBraceMatch ();
+					break;
+				}
 			}
 		}
 	}
