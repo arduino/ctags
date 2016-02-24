@@ -1395,7 +1395,9 @@ static void skipToMatch (const char *const pair)
 			// watch out for '<<' in template arguments
 			int x = cppGetc ();
 			if(c == '<' && x == '<') { 
-				// we've found a << - do nothing
+				// we've found a << - do nothing except record the signature
+				if (CollectingSignature)
+					vStringPut(Signature, x);
 			} else {
 				cppUngetc (x);
 				++matchLevel;
@@ -1411,7 +1413,9 @@ static void skipToMatch (const char *const pair)
 			// watch out for '>>' in template arguments
 			int x = cppGetc ();
 			if(c == '>' && x == '>') { 
-				// we've found a >> in a template - skip it
+				// we've found a >> - do nothing except record the signature
+				if (CollectingSignature)
+					vStringPut(Signature, x);
 			} else {
 				cppUngetc (x);
 				--matchLevel;
