@@ -1410,20 +1410,14 @@ static void skipToMatch (const char *const pair)
 		}
 		else if (c == end)
 		{
-			// watch out for '>>' in template arguments
+			// don't care if you find a '>>' (the important thing is closing the brackets)
 			int x = cppGetc ();
-			if(c == '>' && x == '>') { 
-				// we've found a >> - do nothing except record the signature
-				if (CollectingSignature)
-					vStringPut(Signature, x);
-			} else {
-				cppUngetc (x);
-				--matchLevel;
-				if (braceFormatting  &&  getDirectiveNestLevel () != initialLevel)
-				{
-					skipToFormattedBraceMatch ();
-					break;
-				}
+			cppUngetc (x);
+			--matchLevel;
+			if (braceFormatting  &&  getDirectiveNestLevel () != initialLevel)
+			{
+				skipToFormattedBraceMatch ();
+				break;
 			}
 		}
 		/* early out if matching "<>" and we encounter a ";" or "{" to mitigate
