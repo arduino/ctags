@@ -62,7 +62,7 @@ typedef enum eKeywordId {
 	KEYWORD_ATTRIBUTE, KEYWORD_ABSTRACT,
 	KEYWORD_BOOLEAN, KEYWORD_BYTE, KEYWORD_BAD_STATE, KEYWORD_BAD_TRANS,
 	KEYWORD_BIND, KEYWORD_BIND_VAR, KEYWORD_BIT,
-	KEYWORD_CASE, KEYWORD_CATCH, KEYWORD_CHAR, KEYWORD_CLASS, KEYWORD_CONST,
+	KEYWORD_CASE, KEYWORD_CATCH, KEYWORD_CHAR, KEYWORD_CLASS, KEYWORD_CONST, KEYWORD_CONSTEXPR,
 	KEYWORD_CONSTRAINT, KEYWORD_COVERAGE_BLOCK, KEYWORD_COVERAGE_DEF,
 	KEYWORD_DEFAULT, KEYWORD_DELEGATE, KEYWORD_DELETE, KEYWORD_DO,
 	KEYWORD_DOUBLE,
@@ -377,6 +377,7 @@ static const keywordDesc KeywordTable [] = {
 	{ "char",           KEYWORD_CHAR,           { 1, 1, 1, 1, 0 } },
 	{ "class",          KEYWORD_CLASS,          { 0, 1, 1, 1, 1 } },
 	{ "const",          KEYWORD_CONST,          { 1, 1, 1, 1, 0 } },
+	{ "constexpr",      KEYWORD_CONSTEXPR,      { 0, 1, 0, 0, 0 } },
 	{ "constraint",     KEYWORD_CONSTRAINT,     { 0, 0, 0, 0, 1 } },
 	{ "coverage_block", KEYWORD_COVERAGE_BLOCK, { 0, 0, 0, 0, 1 } },
 	{ "coverage_def",   KEYWORD_COVERAGE_DEF,   { 0, 0, 0, 0, 1 } },
@@ -1770,6 +1771,7 @@ static void processToken (tokenInfo *const token, statementInfo *const st)
 		case KEYWORD_CHAR:      st->declaration = DECL_BASE;            break;
 		case KEYWORD_CLASS:     checkIsClassEnum (st, DECL_CLASS);      break;
 		case KEYWORD_CONST:     st->declaration = DECL_BASE;            break;
+		case KEYWORD_CONSTEXPR: st->declaration = DECL_BASE;            break;
 		case KEYWORD_DOUBLE:    st->declaration = DECL_BASE;            break;
 		case KEYWORD_ENUM:      st->declaration = DECL_ENUM;            break;
 		case KEYWORD_EXTENDS:   readParents (st, '.');
