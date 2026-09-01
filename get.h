@@ -21,16 +21,23 @@
 /*
 *   MACROS
 */
+/*  Is the character the start of a universal character name?  The gcc
+ *  preprocessor rewrites extended identifiers into \uXXXX / \UXXXXXXXX form,
+ *  so the leading backslash must be accepted as part of the identifier.
+ *  The 'u' and the hex digits already satisfy isalnum().
+ */
+#define isUcnEscape(c)  ((c) == '\\')
+
 /*  Is the character valid as a character of a C identifier?
  *  VMS allows '$' in identifiers.
  */
-#define isident(c)  (isalnum(c) || (c) == '_' || (c) == '$')
+#define isident(c)  (isalnum(c) || (c) == '_' || (c) == '$' || isUcnEscape(c))
 
 /*  Is the character valid as the first character of a C identifier?
  *  C++ allows '~' in destructors.
  *  VMS allows '$' in identifiers.
  */
-#define isident1(c)  (isalpha(c) || (c) == '_' || (c) == '~' || (c) == '$')
+#define isident1(c)  (isalpha(c) || (c) == '_' || (c) == '~' || (c) == '$' || isUcnEscape(c))
 
 /*
 *   FUNCTION PROTOTYPES
