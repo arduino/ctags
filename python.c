@@ -135,7 +135,7 @@ static boolean isIdentifierCharacter (int c)
  * extract all relevant information and create a tag.
  */
 static void makeFunctionTag (vString *const function,
-	vString *const parent, int is_class_parent, const char *arglist __unused__)
+	vString *const parent, int is_class_parent, const char *arglist CTAGS_ATTR_UNUSED)
 {
 	tagEntryInfo tag;
 	initTagEntry (&tag, vStringValue (function));
