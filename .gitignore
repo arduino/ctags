@@ -3,3 +3,7 @@ Makefile
 config.log
 config.status
 ctags
+configure
+config.h
+config.h.in
+autom4te.cache/
