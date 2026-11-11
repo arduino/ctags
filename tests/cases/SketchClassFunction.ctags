@@ -1,0 +1,4 @@
+asdf	/tmp/ctags-capture/sketches/SketchClassFunction/SketchClassFunction.ino	/^    void asdf() {}$/;"	kind:function	line:2	class:test	signature:()	returntype:void
+setup	/tmp/ctags-capture/sketches/SketchClassFunction/SketchClassFunction.ino	/^void setup() {$/;"	kind:function	line:4	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchClassFunction/SketchClassFunction.ino	/^void loop() {}$/;"	kind:function	line:7	signature:()	returntype:void
+asdf	/tmp/ctags-capture/sketches/SketchClassFunction/SketchClassFunction.ino	/^void asdf() {}$/;"	kind:function	line:8	signature:()	returntype:void

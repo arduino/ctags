@@ -1,0 +1,2 @@
+setup	/tmp/ctags-capture/sketches/SketchWithDependendLibraries/SketchWithDependendLibraries.ino	/^void setup() {}$/;"	kind:function	line:3	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithDependendLibraries/SketchWithDependendLibraries.ino	/^void loop() {}$/;"	kind:function	line:4	signature:()	returntype:void

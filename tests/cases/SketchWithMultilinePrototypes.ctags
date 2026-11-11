@@ -1,0 +1,10 @@
+setup	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^void setup() {$/;"	kind:function	line:1	signature:()	returntype:void
+myctagstestfunc	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^void myctagstestfunc(int a,$/;"	kind:function	line:12	signature:(int a, int b, int c, int d)	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^void loop() {}$/;"	kind:function	line:17	signature:()	returntype:void
+test	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^test() {}$/;"	kind:function	line:20	signature:()	returntype:void
+test3	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^test3() {}$/;"	kind:function	line:24	signature:()	returntype:void
+test5	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^test5(int a,$/;"	kind:function	line:27	signature:(int a, int b, int c)	returntype:void
+test7	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^test7() {}$/;"	kind:function	line:35	signature:()	returntype:void
+test8	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^test8() {}$/;"	kind:function	line:43	signature:()	returntype:void
+test9	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^ test9(int a,$/;"	kind:function	line:47	signature:(int a, int b)	returntype:void
+test10	/tmp/ctags-capture/sketches/SketchWithMultilinePrototypes/SketchWithMultilinePrototypes.ino	/^void test10(int a, \/\/ this $/;"	kind:function	line:50	signature:(int a, int b, int c )	returntype:void

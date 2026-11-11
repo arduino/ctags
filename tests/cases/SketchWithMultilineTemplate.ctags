@@ -1,0 +1,3 @@
+func	/tmp/ctags-capture/sketches/SketchWithMultilineTemplate/SketchWithMultilineTemplate.ino	/^T func(T t){$/;"	kind:function	line:2	signature:(T t)	returntype:template T
+setup	/tmp/ctags-capture/sketches/SketchWithMultilineTemplate/SketchWithMultilineTemplate.ino	/^void setup() {$/;"	kind:function	line:6	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithMultilineTemplate/SketchWithMultilineTemplate.ino	/^void loop() {}$/;"	kind:function	line:10	signature:()	returntype:void

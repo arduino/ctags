@@ -1,0 +1,2 @@
+setup	/tmp/ctags-capture/sketches/BareMinimum/BareMinimum.ino	/^void setup() {}$/;"	kind:function	line:1	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/BareMinimum/BareMinimum.ino	/^void loop() {}$/;"	kind:function	line:2	signature:()	returntype:void

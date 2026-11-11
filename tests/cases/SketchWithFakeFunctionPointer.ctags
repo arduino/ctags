@@ -1,0 +1,5 @@
+operator +=	/tmp/ctags-capture/sketches/SketchWithFakeFunctionPointer/SketchWithFakeFunctionPointer.ino	/^      Foo &operator +=( const Foo<N> &ref ){$/;"	kind:function	line:6	class:Foo	signature:( const Foo<N> &ref )	returntype:template Foo&
+a	/tmp/ctags-capture/sketches/SketchWithFakeFunctionPointer/SketchWithFakeFunctionPointer.ino	/^Foo<64> a;$/;"	kind:variable	line:12
+b	/tmp/ctags-capture/sketches/SketchWithFakeFunctionPointer/SketchWithFakeFunctionPointer.ino	/^Foo<32> b;$/;"	kind:variable	line:13
+setup	/tmp/ctags-capture/sketches/SketchWithFakeFunctionPointer/SketchWithFakeFunctionPointer.ino	/^void setup(){$/;"	kind:function	line:15	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithFakeFunctionPointer/SketchWithFakeFunctionPointer.ino	/^void loop(){}$/;"	kind:function	line:19	signature:()	returntype:void

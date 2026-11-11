@@ -1,0 +1,18 @@
+nested	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^int nested(int a) {$/;"	kind:function	line:6	namespace:outer::inner	signature:(int a)	returntype:int
+compact	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^int compact(int v) {$/;"	kind:function	line:13	namespace:a::b	signature:(int v)	returntype:int
+Sensor	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  Sensor(int pin) : pin(pin) {}$/;"	kind:function	line:20	class:a::Sensor	signature:(int pin)
+~Sensor	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  ~Sensor() {}$/;"	kind:function	line:21	class:a::Sensor	signature:()
+read	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  int read() const {$/;"	kind:function	line:22	class:a::Sensor	signature:() const	returntype:int
+reset	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  virtual void reset() {}$/;"	kind:function	line:25	class:a::Sensor	signature:()	returntype:virtual void
+create	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  static Sensor create(int pin) {$/;"	kind:function	line:26	class:a::Sensor	signature:(int pin)	returntype:Sensor
+operator ==	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  bool operator==(const Sensor &other) const {$/;"	kind:function	line:29	class:a::Sensor	signature:(const Sensor &other) const	returntype:bool
+operator bool	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  explicit operator bool() const {$/;"	kind:function	line:32	class:a::Sensor	signature:() const	returntype:explicit
+privateHelper	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  void privateHelper();$/;"	kind:prototype	line:38	class:a::Sensor	signature:()	returntype:void
+privateHelper	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^void Sensor::privateHelper() {$/;"	kind:function	line:41	class:Sensor	signature:()	returntype:void
+Derived	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^struct Derived : public Sensor {$/;"	kind:struct	line:44
+Derived	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  Derived() : Sensor(1) {}$/;"	kind:function	line:45	struct:Derived	signature:()
+reset	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^  void reset() override {}$/;"	kind:function	line:46	struct:Derived	signature:()	returntype:void
+operator +	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^Sensor operator+(const Sensor &a, const Sensor &b) {$/;"	kind:function	line:49	signature:(const Sensor &a, const Sensor &b)	returntype:Sensor
+afterClasses	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^int afterClasses(Sensor &s) {$/;"	kind:function	line:53	signature:(Sensor &s)	returntype:int
+setup	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^void setup() {$/;"	kind:function	line:59	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/EdgeClasses/EdgeClasses.ino	/^void loop() {$/;"	kind:function	line:69	signature:()	returntype:void

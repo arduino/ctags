@@ -1,0 +1,2 @@
+setup	/tmp/ctags-capture/sketches/SketchWithOldLibrary/SketchWithOldLibrary.ino	/^void setup() {$/;"	kind:function	line:3	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithOldLibrary/SketchWithOldLibrary.ino	/^void loop() {$/;"	kind:function	line:7	signature:()	returntype:void

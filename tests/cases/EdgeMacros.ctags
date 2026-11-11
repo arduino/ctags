@@ -1,0 +1,9 @@
+get_width	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^int get_width() { return 10; }$/;"	kind:function	line:9	signature:()	returntype:int
+get_height	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^int get_height() { return 20; }$/;"	kind:function	line:10	signature:()	returntype:int
+weakHook	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^__attribute__((weak)) void weakHook() {$/;"	kind:function	line:15	signature:()	returntype:void
+macroReturnType	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^unsigned int macroReturnType() {$/;"	kind:function	line:18	signature:()	returntype:unsigned int
+enabledFunction	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^int enabledFunction() {$/;"	kind:function	line:27	signature:()	returntype:int
+cLinkage	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^int cLinkage(int a) {$/;"	kind:function	line:35	signature:(int a)	returntype:int
+attributeStandard	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^[[nodiscard]] int attributeStandard() {$/;"	kind:function	line:42	signature:()	returntype:int
+setup	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^void setup() {$/;"	kind:function	line:50	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/EdgeMacros/EdgeMacros.ino	/^void loop() {$/;"	kind:function	line:61	signature:()	returntype:void

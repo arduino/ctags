@@ -1,0 +1,19 @@
+Config	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^struct Config {$/;"	kind:struct	line:4
+useStruct	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useStruct(Config cfg) {$/;"	kind:function	line:12	signature:(Config cfg)	returntype:void
+useStructRef	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useStructRef(const Config &cfg) {$/;"	kind:function	line:16	signature:(const Config &cfg)	returntype:void
+useEnum	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useEnum(Color c) {$/;"	kind:function	line:20	signature:(Color c)	returntype:void
+useArray	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useArray(int values[], size_t n) {$/;"	kind:function	line:24	signature:(int values[], size_t n)	returntype:void
+useMatrix	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useMatrix(int m[3][4]) {$/;"	kind:function	line:29	signature:(int m[3][4])	returntype:void
+useArrayRef	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useArrayRef(int (&values)[8]) {$/;"	kind:function	line:33	signature:(int (&values)[8])	returntype:void
+useCallback	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useCallback(void (*cb)(int), int arg) {$/;"	kind:function	line:37	signature:(void (*cb)(int), int arg)	returntype:void
+useTypedefCallback	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useTypedefCallback(handler_t cb) {$/;"	kind:function	line:41	signature:(handler_t cb)	returntype:void
+returnsCallback	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^int (*returnsCallback(int which))(int) {$/;"	kind:function	line:45	signature:(int which)	returntype:int
+useRvalue	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useRvalue(Config &&cfg) {$/;"	kind:function	line:50	signature:(Config &&cfg)	returntype:void
+useVariadic	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useVariadic(const char *fmt, ...) {$/;"	kind:function	line:54	signature:(const char *fmt, ...)	returntype:void
+useUnnamed	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useUnnamed(int, float) {$/;"	kind:function	line:58	signature:(int, float)	returntype:void
+useVoid	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void useVoid(void) {$/;"	kind:function	line:61	signature:(void)	returntype:void
+splitParameters	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void splitParameters(int first,$/;"	kind:function	line:64	signature:(int first, const char *second, Config third)	returntype:void
+splitAfterParen	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void splitAfterParen($/;"	kind:function	line:72	signature:( int a, int b)	returntype:void
+braceOnNextLine	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void braceOnNextLine(int a)$/;"	kind:function	line:79	signature:(int a)	returntype:void
+setup	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void setup() {$/;"	kind:function	line:84	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/EdgeParameters/EdgeParameters.ino	/^void loop() {$/;"	kind:function	line:106	signature:()	returntype:void

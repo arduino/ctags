@@ -1,0 +1,5 @@
+A_NEW_TYPE	/tmp/ctags-capture/sketches/SketchWithStruct/SketchWithStruct.ino	/^struct A_NEW_TYPE {$/;"	kind:struct	line:3
+foo	/tmp/ctags-capture/sketches/SketchWithStruct/SketchWithStruct.ino	/^} foo;$/;"	kind:variable	line:7	typeref:struct:A_NEW_TYPE
+setup	/tmp/ctags-capture/sketches/SketchWithStruct/SketchWithStruct.ino	/^void setup() {$/;"	kind:function	line:9	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithStruct/SketchWithStruct.ino	/^void loop() {$/;"	kind:function	line:13	signature:()	returntype:void
+dostuff	/tmp/ctags-capture/sketches/SketchWithStruct/SketchWithStruct.ino	/^void dostuff (A_NEW_TYPE * bar)$/;"	kind:function	line:17	signature:(A_NEW_TYPE * bar)	returntype:void

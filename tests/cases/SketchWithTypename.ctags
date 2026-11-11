@@ -1,0 +1,4 @@
+Foo	/tmp/ctags-capture/sketches/SketchWithTypename/SketchWithTypename.ino	/^  struct Foo{$/;"	kind:struct	line:2
+setup	/tmp/ctags-capture/sketches/SketchWithTypename/SketchWithTypename.ino	/^void setup() {$/;"	kind:function	line:6	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithTypename/SketchWithTypename.ino	/^void loop() {}$/;"	kind:function	line:10	signature:()	returntype:void
+func	/tmp/ctags-capture/sketches/SketchWithTypename/SketchWithTypename.ino	/^typename Foo<char>::Bar func(){$/;"	kind:function	line:12	signature:()	returntype:Foo::Bar

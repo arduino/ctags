@@ -1,0 +1,5 @@
+setup	/tmp/ctags-capture/sketches/SketchWithIfDef/SketchWithIfDef.ino	/^void setup() {$/;"	kind:function	line:16	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithIfDef/SketchWithIfDef.ino	/^void loop() {$/;"	kind:function	line:21	signature:()	returntype:void
+debug	/tmp/ctags-capture/sketches/SketchWithIfDef/SketchWithIfDef.ino	/^void debug() {$/;"	kind:function	line:33	signature:()	returntype:void
+disabledIsDefined	/tmp/ctags-capture/sketches/SketchWithIfDef/SketchWithIfDef.ino	/^void disabledIsDefined() {$/;"	kind:function	line:44	signature:()	returntype:void
+useMyType	/tmp/ctags-capture/sketches/SketchWithIfDef/SketchWithIfDef.ino	/^int useMyType(MyType type) {$/;"	kind:function	line:48	signature:(MyType type)	returntype:int

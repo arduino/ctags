@@ -1,0 +1,4 @@
+t1Callback	/tmp/ctags-capture/sketches/SketchWithFunctionPointer/SketchWithFunctionPointer.ino	/^Task t1(&t1Callback);$/;"	kind:variable	line:2
+t1Callback	/tmp/ctags-capture/sketches/SketchWithFunctionPointer/SketchWithFunctionPointer.ino	/^void t1Callback() {}$/;"	kind:function	line:3	signature:()	returntype:void
+setup	/tmp/ctags-capture/sketches/SketchWithFunctionPointer/SketchWithFunctionPointer.ino	/^void setup() {}$/;"	kind:function	line:4	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithFunctionPointer/SketchWithFunctionPointer.ino	/^void loop() {}$/;"	kind:function	line:5	signature:()	returntype:void

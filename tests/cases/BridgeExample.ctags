@@ -1,0 +1,7 @@
+server	/tmp/ctags-capture/sketches/BridgeExample/BridgeExample.ino	/^BridgeServer server;$/;"	kind:variable	line:31
+setup	/tmp/ctags-capture/sketches/BridgeExample/BridgeExample.ino	/^void setup() {$/;"	kind:function	line:33	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/BridgeExample/BridgeExample.ino	/^void loop() {$/;"	kind:function	line:46	signature:()	returntype:void
+process	/tmp/ctags-capture/sketches/BridgeExample/BridgeExample.ino	/^void process(BridgeClient client) {$/;"	kind:function	line:62	signature:(BridgeClient client)	returntype:void
+digitalCommand	/tmp/ctags-capture/sketches/BridgeExample/BridgeExample.ino	/^void digitalCommand(BridgeClient client) {$/;"	kind:function	line:82	signature:(BridgeClient client)	returntype:void
+analogCommand	/tmp/ctags-capture/sketches/BridgeExample/BridgeExample.ino	/^void analogCommand(BridgeClient client) {$/;"	kind:function	line:109	signature:(BridgeClient client)	returntype:void
+modeCommand	/tmp/ctags-capture/sketches/BridgeExample/BridgeExample.ino	/^void modeCommand(BridgeClient client) {$/;"	kind:function	line:149	signature:(BridgeClient client)	returntype:void

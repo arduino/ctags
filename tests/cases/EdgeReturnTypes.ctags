@@ -1,0 +1,15 @@
+Point	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^struct Point {$/;"	kind:struct	line:3
+bigValue	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^unsigned long long bigValue() {$/;"	kind:function	line:10	signature:()	returntype:unsigned long long
+name	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^const char *name() {$/;"	kind:function	line:14	signature:()	returntype:const char *
+constName	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^const char * const constName() {$/;"	kind:function	line:18	signature:()	returntype:const char *const
+counter	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^int &counter() {$/;"	kind:function	line:22	signature:()	returntype:int &
+origin	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^Point origin() {$/;"	kind:function	line:27	signature:()	returntype:Point
+pointArray	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^Point *pointArray(size_t n) {$/;"	kind:function	line:31	signature:(size_t n)	returntype:Point*
+currentMode	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^Mode currentMode() {$/;"	kind:function	line:35	signature:()	returntype:Mode
+helper	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^static int helper(int a) {$/;"	kind:function	line:39	signature:(int a)	returntype:int
+twice	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^inline int twice(int a) {$/;"	kind:function	line:43	signature:(int a)	returntype:int
+lowByte8	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^static inline unsigned char lowByte8(unsigned int v) {$/;"	kind:function	line:47	signature:(unsigned int v)	returntype:unsigned char
+square	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^constexpr int square(int a) {$/;"	kind:function	line:51	signature:(int a)	returntype:constexpr int
+splitReturnType	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^splitReturnType(unsigned a) {$/;"	kind:function	line:60	signature:(unsigned a)	returntype:unsigned
+setup	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^void setup() {$/;"	kind:function	line:64	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/EdgeReturnTypes/EdgeReturnTypes.ino	/^void loop() {$/;"	kind:function	line:74	signature:()	returntype:void
