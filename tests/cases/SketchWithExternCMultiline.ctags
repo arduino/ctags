@@ -1,0 +1,7 @@
+setup	/tmp/ctags-capture/sketches/SketchWithExternCMultiline/SketchWithExternCMultiline.ino	/^void setup() {$/;"	kind:function	line:1	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithExternCMultiline/SketchWithExternCMultiline.ino	/^ void loop() {$/;"	kind:function	line:5	signature:()	returntype:void
+test2	/tmp/ctags-capture/sketches/SketchWithExternCMultiline/SketchWithExternCMultiline.ino	/^   void test2() {}$/;"	kind:function	line:15	signature:()	returntype:void
+test4	/tmp/ctags-capture/sketches/SketchWithExternCMultiline/SketchWithExternCMultiline.ino	/^   void test4() {}$/;"	kind:function	line:20	signature:()	returntype:void
+test6	/tmp/ctags-capture/sketches/SketchWithExternCMultiline/SketchWithExternCMultiline.ino	/^   void test6() {}$/;"	kind:function	line:26	signature:()	returntype:void
+test7	/tmp/ctags-capture/sketches/SketchWithExternCMultiline/SketchWithExternCMultiline.ino	/^ void test7() {}$/;"	kind:function	line:30	signature:()	returntype:void
+test10	/tmp/ctags-capture/sketches/SketchWithExternCMultiline/SketchWithExternCMultiline.ino	/^ extern "C" void test10() {$/;"	kind:function	line:32	signature:()	returntype:void

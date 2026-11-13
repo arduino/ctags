@@ -1,0 +1,3 @@
+value	/tmp/ctags-capture/sketches/SketchWithNamespace/SketchWithNamespace.ino	/^ int value() {$/;"	kind:function	line:2	namespace:Test	signature:()	returntype:int
+setup	/tmp/ctags-capture/sketches/SketchWithNamespace/SketchWithNamespace.ino	/^void setup() {}$/;"	kind:function	line:7	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithNamespace/SketchWithNamespace.ino	/^void loop() {}$/;"	kind:function	line:8	signature:()	returntype:void

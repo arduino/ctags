@@ -1,0 +1,3 @@
+myClass	/tmp/ctags-capture/sketches/SketchWithSubfolders/SketchWithSubfolders.ino	/^MyClass myClass;$/;"	kind:variable	line:5
+setup	/tmp/ctags-capture/sketches/SketchWithSubfolders/SketchWithSubfolders.ino	/^void setup() {$/;"	kind:function	line:7	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithSubfolders/SketchWithSubfolders.ino	/^void loop() {$/;"	kind:function	line:11	signature:()	returntype:void

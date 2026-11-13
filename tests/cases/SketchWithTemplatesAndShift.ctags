@@ -1,0 +1,4 @@
+printGyro	/tmp/ctags-capture/sketches/SketchWithTemplatesAndShift/SketchWithTemplatesAndShift.ino	/^void printGyro()$/;"	kind:function	line:10	signature:()	returntype:void
+bVar	/tmp/ctags-capture/sketches/SketchWithTemplatesAndShift/SketchWithTemplatesAndShift.ino	/^c< 8 > bVar;$/;"	kind:variable	line:15
+aVar	/tmp/ctags-capture/sketches/SketchWithTemplatesAndShift/SketchWithTemplatesAndShift.ino	/^c< 1<<8 > aVar;$/;"	kind:variable	line:16
+func	/tmp/ctags-capture/sketches/SketchWithTemplatesAndShift/SketchWithTemplatesAndShift.ino	/^template<int X> func( c< 1<<X> & aParam) {$/;"	kind:function	line:18	signature:( c< 1<<X> & aParam)	returntype:template

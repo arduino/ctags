@@ -1,0 +1,5 @@
+set_values	/tmp/ctags-capture/sketches/SketchWithClass/SketchWithClass.ino	/^    void set_values (int,int);$/;"	kind:prototype	line:4	class:Rectangle	signature:(int,int)	returntype:void
+area	/tmp/ctags-capture/sketches/SketchWithClass/SketchWithClass.ino	/^    int area() {return width*height;}$/;"	kind:function	line:5	class:Rectangle	signature:()	returntype:int
+set_values	/tmp/ctags-capture/sketches/SketchWithClass/SketchWithClass.ino	/^void Rectangle::set_values (int x, int y) {$/;"	kind:function	line:8	class:Rectangle	signature:(int x, int y)	returntype:void
+setup	/tmp/ctags-capture/sketches/SketchWithClass/SketchWithClass.ino	/^void setup() {$/;"	kind:function	line:13	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithClass/SketchWithClass.ino	/^void loop() {$/;"	kind:function	line:17	signature:()	returntype:void

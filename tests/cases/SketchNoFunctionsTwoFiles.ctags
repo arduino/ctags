@@ -1,0 +1,2 @@
+a	/tmp/ctags-capture/sketches/SketchNoFunctionsTwoFiles/partb.ino	/^int a = 0;$/;"	kind:variable	line:3
+b	/tmp/ctags-capture/sketches/SketchNoFunctionsTwoFiles/partb.ino	/^int b = 0;$/;"	kind:variable	line:4

@@ -1,0 +1,3 @@
+cs_13_8	/tmp/ctags-capture/sketches/SketchWithIncludeBetweenMultilineComment/SketchWithIncludeBetweenMultilineComment.ino	/^CapacitiveSensor cs_13_8 = CapacitiveSensor(13,8);$/;"	kind:variable	line:5
+setup	/tmp/ctags-capture/sketches/SketchWithIncludeBetweenMultilineComment/SketchWithIncludeBetweenMultilineComment.ino	/^void setup()$/;"	kind:function	line:6	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithIncludeBetweenMultilineComment/SketchWithIncludeBetweenMultilineComment.ino	/^void loop()$/;"	kind:function	line:10	signature:()	returntype:void

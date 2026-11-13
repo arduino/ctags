@@ -1,0 +1,2 @@
+setup	/tmp/ctags-capture/sketches/SketchWithConflictingLibraries/SketchWithConflictingLibraries.ino	/^void setup() {}$/;"	kind:function	line:5	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithConflictingLibraries/SketchWithConflictingLibraries.ino	/^void loop() {}$/;"	kind:function	line:6	signature:()	returntype:void

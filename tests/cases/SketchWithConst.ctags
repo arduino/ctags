@@ -1,0 +1,6 @@
+setup	/tmp/ctags-capture/sketches/SketchWithConst/SketchWithConst.ino	/^void setup() {}$/;"	kind:function	line:1	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithConst/SketchWithConst.ino	/^void loop() {}$/;"	kind:function	line:2	signature:()	returntype:void
+test	/tmp/ctags-capture/sketches/SketchWithConst/SketchWithConst.ino	/^const __FlashStringHelper* test() {}$/;"	kind:function	line:4	signature:()	returntype:const __FlashStringHelper*
+test3	/tmp/ctags-capture/sketches/SketchWithConst/SketchWithConst.ino	/^const int test3() {}$/;"	kind:function	line:6	signature:()	returntype:const int
+test2	/tmp/ctags-capture/sketches/SketchWithConst/SketchWithConst.ino	/^volatile __FlashStringHelper* test2() {}$/;"	kind:function	line:8	signature:()	returntype:volatile __FlashStringHelper*
+test4	/tmp/ctags-capture/sketches/SketchWithConst/SketchWithConst.ino	/^volatile int test4() {}$/;"	kind:function	line:10	signature:()	returntype:volatile int

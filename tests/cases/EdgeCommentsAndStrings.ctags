@@ -1,0 +1,16 @@
+braces	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^const char *braces = "{ ( } ) \/\/ \/* *\/";$/;"	kind:variable	line:9
+quote	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^const char quote = '"';$/;"	kind:variable	line:10
+brace	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^const char brace = '{';$/;"	kind:variable	line:11
+raw	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^const char *raw = R"(void rawString() { return; })";$/;"	kind:variable	line:12
+commentInSignature	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int commentInSignature(int a \/* first *\/, int b \/* second *\/) {$/;"	kind:function	line:14	signature:(int a , int b )	returntype:int
+commentAfterParen	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int commentAfterParen(int a) \/\/ trailing comment$/;"	kind:function	line:18	signature:(int a)	returntype:int
+commentBeforeBrace	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int commentBeforeBrace(int a) \/* block comment *\/ {$/;"	kind:function	line:23	signature:(int a)	returntype:int
+afterBlockComment	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int afterBlockComment(int a) {$/;"	kind:function	line:30	signature:(int a)	returntype:int
+stringWithBrace	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int stringWithBrace(int a) {$/;"	kind:function	line:35	signature:(int a)	returntype:int
+charWithBrace	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int charWithBrace(int a) {$/;"	kind:function	line:41	signature:(int a)	returntype:int
+escapedQuote	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int escapedQuote(int a) {$/;"	kind:function	line:47	signature:(int a)	returntype:int
+stringEndsWithEscapedQuote	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int stringEndsWithEscapedQuote(int a) {$/;"	kind:function	line:53	signature:(int a)	returntype:int
+charEscapedQuote	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int charEscapedQuote(int a) {$/;"	kind:function	line:59	signature:(int a)	returntype:int
+afterStrings	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^int afterStrings(int a) {$/;"	kind:function	line:65	signature:(int a)	returntype:int
+setup	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^void setup() {$/;"	kind:function	line:69	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/EdgeCommentsAndStrings/EdgeCommentsAndStrings.ino	/^void loop() {$/;"	kind:function	line:82	signature:()	returntype:void

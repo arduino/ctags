@@ -1,0 +1,12 @@
+maxOf	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^T maxOf(T a, T b) {$/;"	kind:function	line:5	signature:(T a, T b)	returntype:template T
+maxOf	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^int maxOf<int>(int a, int b) {$/;"	kind:function	line:10	signature:(int a, int b)	returntype:template int
+scaled	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^T scaled(T v) {$/;"	kind:function	line:20	signature:(T v)	returntype:template T
+countArgs	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^int countArgs(Args... args) {$/;"	kind:function	line:25	signature:(Args.... args)	returntype:template int
+Box	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^struct Box {$/;"	kind:struct	line:30
+get	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^  T get() const;$/;"	kind:prototype	line:32	struct:Box	signature:() const	returntype:T
+get	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^T Box<T>::get() const {$/;"	kind:function	line:36	class:Box	signature:() const	returntype:template T
+convert	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^A convert(B b) {$/;"	kind:function	line:42	signature:(B b)	returntype:template A
+shifted	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^int shifted(int v) {$/;"	kind:function	line:46	signature:(int v)	returntype:int
+compare	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^bool compare(int a, int b) {$/;"	kind:function	line:50	signature:(int a, int b)	returntype:bool
+setup	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^void setup() {$/;"	kind:function	line:54	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/EdgeTemplates/EdgeTemplates.ino	/^void loop() {$/;"	kind:function	line:68	signature:()	returntype:void

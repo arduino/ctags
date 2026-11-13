@@ -1,0 +1,11 @@
+kalman	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^Kalman kalman; \/\/ See https:\/\/github.com\/TKJElectronics\/KalmanFilter for source code$/;"	kind:variable	line:46
+Usb	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^USB Usb; \/\/ This will take care of all USB communication$/;"	kind:variable	line:50
+adk	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^ADK adk(&Usb, "TKJ Electronics", \/\/ Manufacturer Name$/;"	kind:variable	line:55
+Usb	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^XBOXRECV Xbox(&Usb); \/\/ You have to connect a Xbox wireless receiver to the Arduino to control it with a wireless Xbox controller$/;"	kind:variable	line:64
+Usb	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^USBHub Hub(&Usb); \/\/ Some dongles have a hub inside$/;"	kind:variable	line:68
+Usb	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^BTD Btd(&Usb); \/\/ This is the main Bluetooth library, it will take care of all the USB and HCI communication with the Bluetooth dongle$/;"	kind:variable	line:69
+SerialBT	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^SPP SerialBT(&Btd, "Balanduino", "0000"); \/\/ The SPP (Serial Port Protocol) emulates a virtual Serial port, which is supported by most computers and mobile phones$/;"	kind:variable	line:73
+Btd	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^PS3BT PS3(&Btd); \/\/ The PS3 library supports all three official controllers: the Dualshock 3, Navigation and Move controller$/;"	kind:variable	line:77
+Btd	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^WII Wii(&Btd); \/\/ The Wii library can communicate with Wiimotes and the Nunchuck and Motion Plus extension and finally the Wii U Pro Controller$/;"	kind:variable	line:81
+setup	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^void setup() {$/;"	kind:function	line:88	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/Baladuino/Baladuino.ino	/^void loop() {$/;"	kind:function	line:204	signature:()	returntype:void

@@ -1,0 +1,4 @@
+blooper	/tmp/ctags-capture/sketches/SketchWithClassAndMethodSubstring/SketchWithClassAndMethodSubstring.ino	/^int blooper(int x) { return x+1; }$/;"	kind:function	line:3	class:Foo	signature:(int x)	returntype:int
+foo	/tmp/ctags-capture/sketches/SketchWithClassAndMethodSubstring/SketchWithClassAndMethodSubstring.ino	/^Foo foo;$/;"	kind:variable	line:6
+setup	/tmp/ctags-capture/sketches/SketchWithClassAndMethodSubstring/SketchWithClassAndMethodSubstring.ino	/^void setup() {$/;"	kind:function	line:8	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithClassAndMethodSubstring/SketchWithClassAndMethodSubstring.ino	/^void loop() {$/;"	kind:function	line:12	signature:()	returntype:void

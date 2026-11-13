@@ -1,0 +1,8 @@
+setup	/tmp/ctags-capture/sketches/EdgeMultipleFiles/EdgeMultipleFiles.ino	/^void setup() {$/;"	kind:function	line:5	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/EdgeMultipleFiles/EdgeMultipleFiles.ino	/^void loop() {$/;"	kind:function	line:10	signature:()	returntype:void
+lastMessage	/tmp/ctags-capture/sketches/EdgeMultipleFiles/display.ino	/^const char *lastMessage = nullptr;$/;"	kind:variable	line:1
+displayShow	/tmp/ctags-capture/sketches/EdgeMultipleFiles/display.ino	/^void displayShow(const char *message) {$/;"	kind:function	line:3	signature:(const char *message)	returntype:void
+displayRefresh	/tmp/ctags-capture/sketches/EdgeMultipleFiles/display.ino	/^void displayRefresh() {$/;"	kind:function	line:8	signature:()	returntype:void
+motorSpeed	/tmp/ctags-capture/sketches/EdgeMultipleFiles/motor.ino	/^int motorSpeed = 0;$/;"	kind:variable	line:1
+motorStart	/tmp/ctags-capture/sketches/EdgeMultipleFiles/motor.ino	/^void motorStart(int speed) {$/;"	kind:function	line:3	signature:(int speed)	returntype:void
+motorStop	/tmp/ctags-capture/sketches/EdgeMultipleFiles/motor.ino	/^void motorStop() {$/;"	kind:function	line:7	signature:()	returntype:void

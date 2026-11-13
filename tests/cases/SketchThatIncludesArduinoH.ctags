@@ -1,0 +1,2 @@
+setup	/tmp/ctags-capture/sketches/SketchThatIncludesArduinoH/SketchThatIncludesArduinoH.ino	/^void setup() {$/;"	kind:function	line:10	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchThatIncludesArduinoH/SketchThatIncludesArduinoH.ino	/^void loop() {$/;"	kind:function	line:13	signature:()	returntype:void

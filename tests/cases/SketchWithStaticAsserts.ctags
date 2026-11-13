@@ -1,0 +1,5 @@
+a	/tmp/ctags-capture/sketches/SketchWithStaticAsserts/SketchWithStaticAsserts.ino	/^const int a = 10;$/;"	kind:variable	line:3
+b	/tmp/ctags-capture/sketches/SketchWithStaticAsserts/SketchWithStaticAsserts.ino	/^const int b = 20;$/;"	kind:variable	line:4
+setup	/tmp/ctags-capture/sketches/SketchWithStaticAsserts/SketchWithStaticAsserts.ino	/^void setup() {$/;"	kind:function	line:8	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithStaticAsserts/SketchWithStaticAsserts.ino	/^void loop() {$/;"	kind:function	line:12	signature:()	returntype:void
+test	/tmp/ctags-capture/sketches/SketchWithStaticAsserts/SketchWithStaticAsserts.ino	/^void test() {$/;"	kind:function	line:15	signature:()	returntype:void

@@ -1,0 +1,255 @@
+name: 'Build ctags'
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - 'master'
+    tags:
+      - 'v*'
+
+  pull_request:
+    branches:
+      - 'master'
+
+permissions:
+  contents: read
+
+env:
+  LLVM_MINGW_VERSION: '20261020'
+  LLVM_MINGW_SHA256: 55064b60b991a1e1e8090b8c2f84e82b22cfe5903d12c159d65064cf5e8ae335
+
+jobs:
+  build-ctags:
+    name: 'Build (${{ matrix.os }}_${{ matrix.arch }})'
+    runs-on: ${{ matrix.runner }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: linux,   arch: amd64, runner: ubuntu-24.04, host: '' }
+          - { os: linux,   arch: '386', runner: ubuntu-24.04, host: i686-linux-gnu,      apt: gcc-i686-linux-gnu }
+          - { os: linux,   arch: arm,   runner: ubuntu-24.04, host: arm-linux-gnueabihf, apt: gcc-arm-linux-gnueabihf }
+          - { os: linux,   arch: arm64, runner: ubuntu-24.04, host: aarch64-linux-gnu,   apt: gcc-aarch64-linux-gnu }
+          - { os: darwin,  arch: amd64, runner: macos-latest, host: x86_64-apple-darwin, cflags: '-arch x86_64 -mmacosx-version-min=10.13', macho: x86_64 }
+          - { os: darwin,  arch: arm64, runner: macos-latest, host: '',                  cflags: '-arch arm64 -mmacosx-version-min=11.0',   macho: arm64 }
+          - { os: windows, arch: '386', runner: ubuntu-24.04, host: i686-w64-mingw32 }
+          - { os: windows, arch: amd64, runner: ubuntu-24.04, host: x86_64-w64-mingw32 }
+          - { os: windows, arch: arm64, runner: ubuntu-24.04, host: aarch64-w64-mingw32 }
+
+    env:
+      HOST: ${{ matrix.host }}
+      TARGET: ${{ matrix.os }}_${{ matrix.arch }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: 'Checkout'
+      uses: actions/checkout@v7
+
+    - name: 'Install deps (Ubuntu)'
+      if: matrix.os == 'linux'
+      run: |
+        sudo sed -i '/azure\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt 2>/dev/null || true # unreliable mirror
+        sudo apt-get update
+        sudo apt-get install -y autoconf ${{ matrix.apt }}
+
+    - name: 'Install deps (macOS)'
+      if: matrix.os == 'darwin'
+      run: brew install autoconf
+
+    - name: 'Install llvm-mingw'
+      if: matrix.os == 'windows'
+      run: |
+        NAME="llvm-mingw-${LLVM_MINGW_VERSION}-ucrt-ubuntu-22.04-x86_64"
+        curl -fsSL -o "${NAME}.tar.xz" \
+          "https://github.com/mstorsjo/llvm-mingw/releases/download/${LLVM_MINGW_VERSION}/${NAME}.tar.xz"
+        echo "${LLVM_MINGW_SHA256}  ${NAME}.tar.xz" | sha256sum -c -
+        tar xf "${NAME}.tar.xz" -C "${RUNNER_TEMP}"
+        echo "${RUNNER_TEMP}/${NAME}/bin" >> "$GITHUB_PATH"
+
+    - name: 'Set version'
+      run: |
+        if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+          echo "PROJECT_VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+        else
+          echo "PROJECT_VERSION=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+        fi
+
+    - name: 'Build ctags'
+      run: |
+        NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu)
+        case "${{ matrix.os }}" in
+          linux)
+            CC="${HOST:+${HOST}-}gcc"
+            STRIP="${HOST:+${HOST}-}strip"
+            LDFLAGS="-static"
+            EXE=""
+            ;;
+          darwin)
+            CC="clang"
+            STRIP="strip"
+            LDFLAGS="${{ matrix.cflags }}"
+            EXE=""
+            ;;
+          windows)
+            STRIP="${HOST}-strip"
+            EXE=".exe"
+            ;;
+        esac
+
+        # Reported by --version. Passed to make, not configure, which would
+        # use it in its test programs too.
+        VERSION_DEFINE="-DPROGRAM_VERSION=\\\"${PROJECT_VERSION}\\\""
+
+        if [ "${{ matrix.os }}" = "windows" ]; then
+          make -f mk_mingw.mak CC="${HOST}-clang" CFLAGS="-Wall -static ${VERSION_DEFINE}" ctags.exe
+        else
+          autoheader
+          autoconf
+          # Cross builds cannot run configure's regcomp test, and would then
+          # build without regex support. regcomp works on all targets.
+          regcomp_works=yes ./configure ${HOST:+--host=${HOST}} \
+            CC="${CC}" CFLAGS="-O2 ${{ matrix.cflags }}" LDFLAGS="${LDFLAGS}"
+          make -j"${NPROC}" CFLAGS="-O2 ${{ matrix.cflags }} ${VERSION_DEFINE}" ctags
+        fi
+
+        mkdir -p "${TARGET}"
+        cp "ctags${EXE}" "${TARGET}/"
+        "${STRIP}" "${TARGET}/ctags${EXE}"
+
+    - name: 'Check binary'
+      run: |
+        f=$(ls "${TARGET}"/ctags*)
+        if ! grep -aq "${PROJECT_VERSION}" "${f}"; then
+          echo "Error: ${f} does not contain version ${PROJECT_VERSION}"
+          exit 1
+        fi
+        case "${{ matrix.os }}" in
+          linux)
+            file "${f}"
+            file "${f}" | grep -Eq 'statically linked|static-pie linked'
+            ;;
+          windows)
+            llvm-objdump -p "${f}" | grep 'DLL Name'
+            if llvm-objdump -p "${f}" | grep -iE 'DLL Name: (libwinpthread|libgcc|libc\+\+|libunwind)'; then
+              echo "Error: ${f} depends on a non-system DLL"
+              exit 1
+            fi
+            ;;
+          darwin)
+            otool -L "${f}"
+            if otool -L "${f}" | tail -n +2 | grep -vE '^[[:space:]]+(/usr/lib/|/System/Library/)'; then
+              echo "Error: ${f} links a non-system library"
+              exit 1
+            fi
+            vtool -show-build "${f}"
+            test "$(lipo -archs "${f}")" = "${{ matrix.macho }}"
+            ;;
+        esac
+
+    - name: 'Sign binary (macOS)'
+      if: matrix.os == 'darwin'
+      run: |
+        codesign --force --sign - "${TARGET}/ctags"
+        codesign --verify --strict --verbose "${TARGET}/ctags"
+
+    - name: 'Package'
+      run: |
+        chmod +x "${TARGET}"/*
+        tar czf "ctags-${PROJECT_VERSION}-${TARGET}.tar.gz" "${TARGET}"
+
+    - name: 'Upload artifact'
+      uses: actions/upload-artifact@v7
+      with:
+        name: ctags-${{ env.TARGET }}
+        path: ctags-${{ env.PROJECT_VERSION }}-${{ env.TARGET }}.tar.gz
+        retention-days: 1
+        if-no-files-found: error
+
+  test-ctags:
+    name: 'Test (${{ matrix.target }})'
+    needs: [build-ctags]
+    runs-on: ${{ matrix.runner }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { target: linux_amd64,   runner: ubuntu-24.04 }
+          - { target: linux_386,     runner: ubuntu-24.04 }
+          - { target: linux_arm,     runner: ubuntu-24.04, qemu: true }
+          - { target: linux_arm64,   runner: ubuntu-24.04-arm }
+          - { target: darwin_amd64,  runner: macos-latest, rosetta: true }
+          - { target: darwin_arm64,  runner: macos-latest }
+          - { target: windows_386,   runner: windows-latest, exe: .exe }
+          - { target: windows_amd64, runner: windows-latest, exe: .exe }
+          - { target: windows_arm64, runner: windows-11-arm, exe: .exe }
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: 'Checkout'
+      uses: actions/checkout@v7
+
+    - name: 'Set up Python'
+      uses: actions/setup-python@v7
+      with:
+        python-version: '3.12'
+
+    - name: 'Install qemu-user'
+      if: matrix.qemu
+      run: |
+        sudo sed -i '/azure\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt 2>/dev/null || true # unreliable mirror
+        sudo apt-get update
+        sudo apt-get install -y qemu-user-static
+
+    - name: 'Install Rosetta'
+      if: matrix.rosetta
+      run: softwareupdate --install-rosetta --agree-to-license
+
+    - name: 'Download artifact'
+      uses: actions/download-artifact@v8
+      with:
+        name: ctags-${{ matrix.target }}
+
+    - name: 'Extract'
+      run: tar xzf ctags-*-${{ matrix.target }}.tar.gz
+
+    - name: 'Run tests'
+      run: python tests/run.py --ctags "${{ matrix.target }}/ctags${{ matrix.exe }}"
+
+  create-release:
+    runs-on: ubuntu-24.04
+    needs: [build-ctags, test-ctags]
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+    - name: 'Download artifacts'
+      uses: actions/download-artifact@v8
+      with:
+        path: artifacts/
+        pattern: 'ctags-*'
+        merge-multiple: true
+
+    - name: 'Create release'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        PROJECT_VERSION="${GITHUB_REF_NAME#v}"
+        cd artifacts
+        sha256sum ctags-*.tar.gz > "ctags-${PROJECT_VERSION}.sha256"
+        cat "ctags-${PROJECT_VERSION}.sha256"
+        gh release create "${GITHUB_REF_NAME}" \
+          --title "ctags ${PROJECT_VERSION}" \
+          --notes "Built from commit ${GITHUB_SHA}." \
+          ./*

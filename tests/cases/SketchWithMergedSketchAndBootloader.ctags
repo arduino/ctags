@@ -1,0 +1,3 @@
+setup	/tmp/ctags-capture/sketches/SketchWithMergedSketchAndBootloader/SketchWithMergedSketchAndBootloader.ino	/^void setup() {$/;"	kind:function	line:1	signature:()	returntype:void
+loop	/tmp/ctags-capture/sketches/SketchWithMergedSketchAndBootloader/SketchWithMergedSketchAndBootloader.ino	/^void loop() {$/;"	kind:function	line:5	signature:()	returntype:void
+hello	/tmp/ctags-capture/sketches/SketchWithMergedSketchAndBootloader/other.ino	/^String hello() {$/;"	kind:function	line:1	signature:()	returntype:String

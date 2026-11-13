@@ -1,0 +1,4 @@
+# Test inputs and expected outputs are compared byte for byte: never convert
+# line endings.
+tests/sketches/** -text
+tests/cases/** -text
