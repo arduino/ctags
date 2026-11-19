@@ -164,6 +164,9 @@ static vString *readFileName (void)
 	while (c != EOF  &&  c != '\n'  &&
 			(quoteDelimited ? (c != '"') : (c != ' '  &&  c != '\t')))
 	{
+		if (c == '\\') {
+			c = getc (File.fp);
+		}
 		vStringPut (fileName, c);
 		c = getc (File.fp);
 	}
